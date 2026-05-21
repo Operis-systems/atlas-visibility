@@ -1,0 +1,383 @@
+/* ─── Reset & Base ─────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Barlow', 'Arial', sans-serif;
+  background: #0a0a0a;
+  color: #ffffff;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(201, 151, 42, 0.25);
+  color: #fff;
+}
+
+/* ─── Scrollbar ────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+::-webkit-scrollbar-thumb {
+  background: #c9972a;
+  border-radius: 2px;
+}
+
+/* ─── Animations ───────────────────────────────────────────── */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes pulse-gold {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201, 151, 42, 0.35); }
+  50%       { box-shadow: 0 0 0 8px rgba(201, 151, 42, 0); }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── Animation utility classes ────────────────────────────── */
+.animate-fade-up {
+  animation: fadeUp 0.7s ease both;
+}
+.animate-fade-up-delay-1 { animation: fadeUp 0.7s 0.1s ease both; }
+.animate-fade-up-delay-2 { animation: fadeUp 0.7s 0.2s ease both; }
+.animate-fade-up-delay-3 { animation: fadeUp 0.7s 0.3s ease both; }
+.animate-fade-up-delay-4 { animation: fadeUp 0.7s 0.4s ease both; }
+.animate-fade-up-delay-5 { animation: fadeUp 0.7s 0.5s ease both; }
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease both;
+}
+
+.slide-down {
+  animation: slideDown 0.25s ease both;
+}
+
+/* ─── Intersection observer reveal ─────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ─── Layout utilities ─────────────────────────────────────── */
+.section-pad {
+  padding: 100px 28px;
+}
+
+.container {
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.container-sm {
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.container-md {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ─── Two-column grid ──────────────────────────────────────── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .two-col {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .section-pad {
+    padding: 72px 20px;
+  }
+}
+
+/* ─── Fix card grid ────────────────────────────────────────── */
+.fix-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 2px;
+}
+
+/* ─── Process grid ─────────────────────────────────────────── */
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: #1a1a1a;
+}
+
+@media (max-width: 768px) {
+  .process-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .process-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ─── Offer grid ───────────────────────────────────────────── */
+.offer-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+@media (max-width: 768px) {
+  .offer-grid {
+    grid-template-columns: 1fr;
+  }
+  .offer-grid > div:first-child {
+    border-right: none !important;
+    border-bottom: 1px solid #1a1a1a;
+  }
+}
+
+/* ─── CTA grid ─────────────────────────────────────────────── */
+.cta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 72px;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .cta-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+}
+
+/* ─── Form input grid ──────────────────────────────────────── */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+@media (max-width: 500px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ─── Nav ──────────────────────────────────────────────────── */
+.desk-nav {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+
+.mob-btn {
+  display: none;
+}
+
+@media (max-width: 860px) {
+  .desk-nav {
+    display: none;
+  }
+  .mob-btn {
+    display: block;
+  }
+}
+
+/* ─── Who grid tag ─────────────────────────────────────────── */
+.trade-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* ─── Hover card ───────────────────────────────────────────── */
+.fix-card {
+  background: #0a0a0a;
+  padding: 32px 28px;
+  border: 1px solid #1a1a1a;
+  cursor: default;
+  transition: background 0.2s, border-color 0.2s;
+}
+.fix-card:hover {
+  background: #111111;
+  border-color: rgba(201, 151, 42, 0.3);
+}
+
+/* ─── Process step card ────────────────────────────────────── */
+.process-card {
+  background: #0a0a0a;
+  padding: 40px 28px;
+  border-top: 3px solid transparent;
+  transition: border-color 0.2s;
+}
+.process-card:hover,
+.process-card.active {
+  border-top-color: #c9972a;
+}
+
+/* ─── Gold button ──────────────────────────────────────────── */
+.gold-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-family: 'Barlow Condensed', sans-serif;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: none;
+}
+
+.gold-btn-solid {
+  background: linear-gradient(135deg, #c9972a, #a07820);
+  color: #0a0a0a;
+  box-shadow: 0 6px 24px rgba(201, 151, 42, 0.28);
+}
+.gold-btn-solid:hover {
+  box-shadow: 0 8px 32px rgba(201, 151, 42, 0.45);
+  transform: translateY(-1px);
+}
+
+.gold-btn-outline {
+  border: 1.5px solid #c9972a;
+  color: #c9972a;
+  background: transparent;
+}
+.gold-btn-outline:hover {
+  background: rgba(201, 151, 42, 0.08);
+}
+
+/* ─── Nav link ─────────────────────────────────────────────── */
+.nav-link {
+  color: #666;
+  font-size: 11px;
+  text-decoration: none;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.nav-link:hover {
+  color: #c9972a;
+}
+
+/* ─── FAQ accordion ────────────────────────────────────────── */
+.faq-question {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 600;
+  font-size: 17px;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  transition: color 0.2s;
+}
+.faq-icon {
+  transition: transform 0.25s ease;
+}
+
+/* ─── Stats row ────────────────────────────────────────────── */
+.stats-row {
+  display: flex;
+  justify-content: center;
+  gap: clamp(24px, 5vw, 64px);
+  flex-wrap: wrap;
+  margin-bottom: 52px;
+  padding: 28px;
+  border: 1px solid rgba(201, 151, 42, 0.15);
+  border-radius: 4px;
+  background: rgba(201, 151, 42, 0.03);
+}
+
+/* ─── Mobile menu ──────────────────────────────────────────── */
+.mob-menu {
+  background: #0f0f0f;
+  border-top: 1px solid rgba(201, 151, 42, 0.2);
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  animation: slideDown 0.2s ease;
+}
+
+/* ─── Input base ───────────────────────────────────────────── */
+.form-input {
+  width: 100%;
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 3px;
+  padding: 13px 14px;
+  color: #ddd;
+  font-size: 13px;
+  outline: none;
+  font-family: 'Barlow', sans-serif;
+  transition: border-color 0.2s;
+  resize: vertical;
+}
+.form-input:focus {
+  border-color: #c9972a;
+}
+.form-input::placeholder {
+  color: #444;
+}
