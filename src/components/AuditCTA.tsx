@@ -1,6 +1,14 @@
-import React, { useState, ChangeEvent } from 'react'
+import React, { useState, useRef, ChangeEvent } from 'react'
 import { SectionLabel, IconCheck, GOLD, GOLD_DARK } from './UI'
 import { AtlasLogoMark } from './Logo'
+
+// ─── Tally form configuration ────────────────────────────────────────────────
+// Form URL: https://tally.so/r/D4ZKjb
+// The hidden iframe absorbs Tally's redirect so the page never navigates away.
+// The hidden HTML form POSTs to Tally with standard field names.
+// Tally accepts any field names — they appear as column headers in your dashboard.
+const TALLY_FORM_URL = 'https://tally.so/r/D4ZKjb'
+const TALLY_IFRAME_NAME = 'tally-submission-sink'
 
 interface FormState {
   name: string
@@ -42,6 +50,7 @@ const CHECKS = [
 const AuditCTA: React.FC = () => {
   const [form, setForm] = useState<FormState>(INITIAL)
   const [sent, setSent] = useState(false)
+  const hiddenFormRef = useRef<HTMLFormElement>(null)
 
   const handle =
     (key: keyof FormState) =>
@@ -56,12 +65,58 @@ const AuditCTA: React.FC = () => {
     e.target.style.borderColor = '#222'
   }
 
+  const handleSubmit = () => {
+    // Submit the hidden form to Tally (response absorbed by the named iframe)
+    if (hiddenFormRef.current) {
+      hiddenFormRef.current.submit()
+    }
+    // Immediately show the success screen — no waiting, no redirect
+    setSent(true)
+  }
+
   return (
     <section
       id="audit"
       className="section-pad"
       style={{ background: '#0a0a0a' }}
     >
+      {/*
+        ── TALLY SUBMISSION MECHANISM ──────────────────────────────────────────
+        Two invisible elements handle the Tally submission:
+
+        1. <iframe name="tally-submission-sink">
+           Tally's redirect response loads into this iframe, not the main page.
+           display:none keeps it fully invisible. The browser's popout-blocker
+           is satisfied because the form target matches a named frame.
+
+        2. <form ref={hiddenFormRef} target="tally-submission-sink">
+           Standard HTML form that mirrors the visible form's field values.
+           Submitted programmatically in handleSubmit() above.
+           The "name" attributes on its inputs become column headers in Tally.
+        ────────────────────────────────────────────────────────────────────── */}
+      <iframe
+        name={TALLY_IFRAME_NAME}
+        title="Form submission target"
+        style={{ display: 'none' }}
+        aria-hidden="true"
+      />
+      <form
+        ref={hiddenFormRef}
+        action={TALLY_FORM_URL}
+        method="POST"
+        target={TALLY_IFRAME_NAME}
+        style={{ display: 'none' }}
+        aria-hidden="true"
+      >
+        <input type="text" name="Name"                     value={form.name}     readOnly />
+        <input type="text" name="Business Name"            value={form.business} readOnly />
+        <input type="tel"  name="Phone Number"             value={form.phone}    readOnly />
+        <input type="email" name="Email Address"           value={form.email}    readOnly />
+        <input type="text" name="Website or Google Listing" value={form.website} readOnly />
+        <textarea          name="Message"                  value={form.message}  readOnly />
+      </form>
+
+      {/* ── VISIBLE SECTION — unchanged from original ── */}
       <div className="container-md">
         <div className="cta-grid">
           {/* Left: pitch */}
@@ -126,7 +181,7 @@ const AuditCTA: React.FC = () => {
             </div>
           </div>
 
-          {/* Right: form */}
+          {/* Right: form card */}
           <div
             className="reveal reveal-delay-2"
             style={{
@@ -138,6 +193,7 @@ const AuditCTA: React.FC = () => {
             }}
           >
             {sent ? (
+              /* ── Success state — identical to original ── */
               <div style={{ textAlign: 'center', padding: '40px 0' }}>
                 <AtlasLogoMark size={56} />
                 <h3
@@ -166,6 +222,7 @@ const AuditCTA: React.FC = () => {
                 </p>
               </div>
             ) : (
+              /* ── Input state — identical to original ── */
               <>
                 <h3
                   style={{
@@ -237,7 +294,7 @@ const AuditCTA: React.FC = () => {
                     onBlur={handleBlur}
                   />
                   <button
-                    onClick={() => setSent(true)}
+                    onClick={handleSubmit}
                     style={{
                       background: `linear-gradient(135deg, ${GOLD}, ${GOLD_DARK})`,
                       color: '#0a0a0a',
