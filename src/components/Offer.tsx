@@ -96,7 +96,7 @@ This isn't a dashboard subscription. This is hands-on work that
 positions your business to compete and win in local search —
 documented, deliverable, and ready to act on.
 </p>
-<GoldBtn href="https://tally.so/r/D4ZKjb" target="_blank" rel="noopener noreferrer">
+<GoldBtn >
 Get Your Free Audit First <IconArrow />
 </GoldBtn>
 </div>
