@@ -1,7 +1,7 @@
-import React from 'react'
+from 'react'
 import { SectionLabel, IconCheck, GoldBtn, IconArrow, GOLD } from './UI'
 import { AtlasLogoMark } from './Logo'
-const TALLY_URL = 'https://tally.so/r/D4ZKjb'
+
 const CHECKS = [
 'Full profile review — free, no strings attached',
 'Specific, actionable findings (not generic advice)',
@@ -124,9 +124,7 @@ real findings — not a sales pitch.
 </p>
 </div>
 <GoldBtn
-href={TALLY_URL}
-target="_blank"
-rel="noopener noreferrer"
+
 style={{ fontSize: '13px', padding: '16px 36px' }}
 >
 
