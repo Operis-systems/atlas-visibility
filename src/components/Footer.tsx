@@ -47,7 +47,7 @@ fontFamily: "'Barlow', sans-serif",
 © {new Date().getFullYear()} Atlas Visibility Co. All rights reserved.
 </p>
 </div>
-<GoldBtn href="https://tally.so/r/D4ZKjb" outline target="_blank" rel="noopener noreferrer">
+<GoldBtn outline >
 Free Audit →
 </GoldBtn>
 </div>
