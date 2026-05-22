@@ -59,7 +59,7 @@ className="nav-link"
 {l}
 </a>
 ))}
-<GoldBtn href="https://tally.so/r/D4ZKjb" target="_blank" rel="noopener noreferrer">Free Audit</GoldBtn>
+<GoldBtn >Free Audit</GoldBtn>
 </div>
 {/* Hamburger */}
 <button
@@ -116,9 +116,7 @@ fontFamily: "'Barlow Condensed', sans-serif",
 </a>
 ))}
 <GoldBtn
-href="https://tally.so/r/D4ZKjb"
-target="_blank"
-rel="noopener noreferrer"
+
 onClick={() => setOpen(false)}
 style={{ justifyContent: 'center' }}
 >
