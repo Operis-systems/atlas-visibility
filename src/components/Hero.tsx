@@ -191,7 +191,7 @@ justifyContent: 'center',
 flexWrap: 'wrap',
 }}
 >
-<GoldBtn href="https://tally.so/r/D4ZKjb" target="_blank" rel="noopener noreferrer">
+<GoldBtn >
 Request a Free Visibility Audit <IconArrow />
 </GoldBtn>
 <GoldBtn href="#What-We-Fix" outline>
